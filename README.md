@@ -4,6 +4,8 @@
 ## 📦 1. Install Environment
 
 ```bash
+git clone --recurse-submodules https://github.com/SHUQAAQ/BY-REINFORCE.git
+
 conda create -n ${env_name} python=3.7 
 conda activate ${env_name}
 ```
