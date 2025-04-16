@@ -13,7 +13,7 @@ defaults:
 
 
 # name of the run determines folder name in logs
-name: "fixedbb/cath/pifold"
+name: "fixedbb/cath_4.3/pifold"
 
 # model
 model:

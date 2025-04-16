@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 import torch
+import torch.nn as nn
 from byprot.models import register_model
 from byprot.models.fixedbb import FixedBackboneDesignEncoderDecoder
 from byprot.models.fixedbb.generator import new_arange, sample_from_categorical
@@ -27,7 +28,19 @@ class ProteinMPNNConfig:
     nar: bool = True
     crf: bool = False
     use_esm_alphabet: bool = False
+    
+#融合层定义
+class FusionLayer(nn.Module):
+    def __init__(self, input_dim, output_dim):
+        super(FusionLayer, self).__init__()
+        self.transform = nn.Sequential(                   #定义了一个顺序模型 nn.Sequential，它是 PyTorch 中用于包装多个层的容器，使得这些层可以按顺序执行
+            nn.Linear(input_dim, output_dim),             #定义了一个线性层，将输入的特征从 input_dim 维转换到 output_dim 维。
+            nn.ReLU(),                                    #一个激活层，使用了 ReLU (Rectified Linear Unit) 激活函数，用于增加模型的非线性能力，帮助解决梯度消失问题，并促进更快的训练。
+            nn.Linear(output_dim, output_dim)             #再次将特征进行线性变换，输入和输出维度都是 output_dim，这可以进一步提炼特征。
+        )
 
+    def forward(self, x):
+        return self.transform(x)                          #将输入数据 x 传递给之前定义的 self.transform 层序列，执行定义好的层序列操作，并返回最终的输出。
 
 @register_model('protein_mpnn_cmlm')
 class ProteinMPNNCMLM(FixedBackboneDesignEncoderDecoder):
@@ -45,6 +58,8 @@ class ProteinMPNNCMLM(FixedBackboneDesignEncoderDecoder):
             augment_eps=self.cfg.augment_eps,
             dropout=self.cfg.dropout
         )
+        
+        self.fusion_layer = FusionLayer(cfg.d_model, cfg.d_model)  # Adding fusion layer
 
         if self.cfg.use_esm_alphabet:
             alphabet = Alphabet('esm', 'cath')
@@ -90,6 +105,9 @@ class ProteinMPNNCMLM(FixedBackboneDesignEncoderDecoder):
             residue_idx=batch.get('residue_idx', None),
             chain_idx=batch.get('chain_idx', None)
         )
+        
+         # Apply fusion layer after encoder output
+        fused_output = self.fusion_layer(encoder_out['node_feats'])
 
         logits, feats = self.decoder(
             prev_tokens=batch['prev_tokens'],

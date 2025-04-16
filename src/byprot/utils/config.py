@@ -62,6 +62,7 @@ def resolve_experiment_config(config: DictConfig):
     if config.experiment_path is not None:
         config.experiment_path = hydra.utils.to_absolute_path(config.experiment_path)
         experiment_config = OmegaConf.load(os.path.join(config.experiment_path, '.hydra', 'config.yaml'))
+        #print(os.path.abspath(os.path.join(config.experiment_path, 'hydra', 'config.yaml')))
         from omegaconf import open_dict
         with open_dict(config):
             config.datamodule = experiment_config.datamodule

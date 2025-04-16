@@ -19,6 +19,8 @@ from omegaconf import DictConfig
 
 @hydra.main(config_path=f"{root}/configs", config_name="test.yaml")
 def main(config: DictConfig):
+    #print(f"Config path: {root}/configs")
+    #print(f"Complete config path: {hydra.utils.to_absolute_path(f'{root}/configs/test.yaml')}")
 
     # Imports can be nested inside @hydra.main to optimize tab completion
     # https://github.com/facebookresearch/hydra/issues/934

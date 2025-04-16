@@ -97,7 +97,7 @@ class IterativeRefinementGenerator(object):
             decoder_out = model.forward_decoder(
                 prev_decoder_out=prev_decoder_out,
                 encoder_out=encoder_out,
-                need_attn_weights=need_attn_weights
+                #need_attn_weights=need_attn_weights
             )
 
             output_tokens = decoder_out['output_tokens']

@@ -18,6 +18,7 @@ datamodule:
 
 # model
 model:
+  n_vocab: 22
   _target_: protein_mpnn_cmlm
   d_model: 128
   n_enc_layers: 3

@@ -79,6 +79,7 @@ class MPNNEncoder(nn.Module):
         self.node_features = node_features
         self.edge_features = edge_features
         self.hidden_dim = hidden_dim
+        
 
         # Featurization layers
         self.features = ProteinFeatures(node_features, edge_features, top_k=k_neighbors, augment_eps=augment_eps)
@@ -126,6 +127,13 @@ class MPNNEncoder(nn.Module):
         h_V = torch.zeros((E.shape[0], E.shape[1], E.shape[-1]), device=E.device)
         for layer in self.encoder_layers:
             h_V, h_E = layer(h_V, h_E, E_idx, mask, mask_attend)
+        
+        #output = {
+            #'node_feats': h_V,
+            #'edge_feats': h_E,
+            #'edge_idx': E_idx
+        #}
+        #print("Encoder output structure:", output)
 
         return {
             'node_feats': h_V, 'edge_feats': h_E, 'edge_idx': E_idx

@@ -1,7 +1,7 @@
 _target_: multichain
 
 # data_dir: ${data_dir} # data_dir is specified in config.yaml
-data_dir: '${paths.data_dir}/multichain/pdb_2021aug02'
+data_dir: '/root/autodl-tmp/ByProt/data/multichain/pdb_2021aug02_sample'
 max_length: 1000
 atoms: ['N', 'CA', 'C', 'O']
 
