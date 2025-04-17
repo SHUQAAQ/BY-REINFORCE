@@ -119,7 +119,7 @@ cfg = Cfg(
 designer = Designer(experiment_path=exp_path, cfg=cfg)
 
 # 2. load structure from pdb file
-pdb_path = "/root/research/projects/BY-REINFORCE/data/3uat_variants/5ggs.pdb"
+pdb_path = "/root/research/projects/BY-REINFORCE/pdb/5ggs.pdb"
 designer.set_structure(pdb_path)
 
 # 3. generate sequence from the given structure
