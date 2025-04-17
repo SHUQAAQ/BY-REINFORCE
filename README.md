@@ -18,6 +18,9 @@ bash install.sh
 pip install lmdb
 pip install tmtools
 pip install python-Levenshtein
+
+pip install -e .
+pip install -e ./vendor/esm
 ```
 
 > You may also manage dependencies with a `requirements.txt` file.
@@ -97,7 +100,7 @@ For multi-GPU training, please properly set `CUDA_VISIBLE_DEVICES`.
 ---
 
 ## 🧪 5. Example Inference:Designing sequences from a pdb file using a trained model in Notebook
-### Example 1:ProteinMPNN
+### Example 1:seq-design
 ```python
 from byprot.utils.config import compose_config as Cfg
 from byprot.tasks.fixedbb.designer import Designer
