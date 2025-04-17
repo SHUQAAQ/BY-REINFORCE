@@ -106,7 +106,7 @@ from byprot.utils.config import compose_config as Cfg
 from byprot.tasks.fixedbb.designer import Designer
 
 # 1. instantialize designer
-exp_path = "/root/research/projects/BY/run/logs/fixedbb/cath_4.2/protein_mpnn_cmlm"
+exp_path = "/root/research/projects/BY-REINFORCE/run/logs/fixedbb/cath_4.2/protein_mpnn_cmlm"
 cfg = Cfg(
     cuda=True,
     generator=Cfg(
@@ -119,7 +119,7 @@ cfg = Cfg(
 designer = Designer(experiment_path=exp_path, cfg=cfg)
 
 # 2. load structure from pdb file
-pdb_path = "/root/research/projects/BY/data/3uat_variants/5ggs.pdb"
+pdb_path = "/root/research/projects/BY-REINFORCE/data/3uat_variants/5ggs.pdb"
 designer.set_structure(pdb_path)
 
 # 3. generate sequence from the given structure
