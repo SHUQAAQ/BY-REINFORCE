@@ -18,6 +18,7 @@ name: "fixedbb/cath_4.3/pifold"
 # model
 model:
   _target_: pifold
+  d_model: 128
 
 # datamodule
 datamodule:
