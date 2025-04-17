@@ -4,7 +4,7 @@ _target_: cath
 data_dir: '/root/autodl-tmp/ByProt/data//cath_4.3'
 chain_set_jsonl: 'chain_set.jsonl'
 chain_set_splits_json: 'chain_set_splits.json'
-max_length: 500 # 393
+max_length: 500                 # 384    If your GPU is insufficient, use this parameter
 atoms: ['N', 'CA', 'C', 'O']
 
 # alphabet related
@@ -13,7 +13,7 @@ alphabet:
   featurizer: cath
 
 # dataloader related
-max_tokens: 6000
+max_tokens: 6000                # 2000    If your GPU is insufficient, use this parameter
 sort: true
 num_workers: 8
 pin_memory: true
